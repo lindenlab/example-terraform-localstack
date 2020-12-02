@@ -1,0 +1,25 @@
+localstack:
+  image: docker.io/localstack/localstack
+  environment:
+    - SERVICES=sns,sqs,lambda,logs
+    - DATA_DIR=/tmp/localstack/data
+    - DOCKER_HOST=unix:///var/run/docker.sock
+    - DEFAULT_REGION=us-west-2
+    - LAMBDA_EXECUTOR=docker
+    - AWS_REGION=us-west-2
+    - AWS_ACCESS_KEY_ID=localstack
+    - AWS_SECRET_ACCESS_KEY=localstack
+  ports:
+    - "8180:8080" # dashboard
+    - "4566:4566" # std port
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+terraform:
+  image: docker.io/hashicorp/terraform
+  entrypoint: /app/provision.sh
+  volumes:
+    - ./provision.sh:/app/provision.sh:ro
+    - ./localstack.tf:/app/localstack.tf:ro
+    - ./lambda.tf:/app/lambda.tf:ro
+  links:
+    - localstack
