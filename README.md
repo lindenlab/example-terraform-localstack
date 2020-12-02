@@ -1,5 +1,7 @@
 
-# Example of using terraform and localstack
+# Example of terraform and localstack bug
 
-Actually, right now this is thrown together to show a bug in terraform (or maybe needed feature in localstack).
+Run docker-compose up to see bug.
+
+If you pin the aws providor to an older version in localstack.tf then everthing forks fine.
 

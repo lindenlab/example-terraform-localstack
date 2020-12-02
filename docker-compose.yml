@@ -20,6 +20,5 @@ terraform:
   volumes:
     - ./provision.sh:/app/provision.sh:ro
     - ./localstack.tf:/app/localstack.tf:ro
-    - ./lambda.tf:/app/lambda.tf:ro
   links:
     - localstack
